@@ -12,10 +12,9 @@ public class Parque implements IParque{
 	private Hashtable<String, Integer> contadoresPersonasPuerta;
 	
 	
-	public Parque() {	// TODO
+	public Parque() {
 		contadorPersonasTotales = 0;
 		contadoresPersonasPuerta = new Hashtable<String, Integer>();
-		//to do
 	}
 
 
@@ -37,11 +36,11 @@ public class Parque implements IParque{
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Entrada");
 		
-		// TODO
-		notify();
+		// Se notifica al resto de hilos
+		notifyAll();
 		
 		
-		// TODO
+		// Comprobamos invariantes
 		checkInvariante();
 		
 	}
@@ -68,11 +67,11 @@ public class Parque implements IParque{
 		// Imprimimos el estado del parque
 		imprimirInfo(puerta, "Salida");
 		
-		// TODO
-		notify();
+		// Se notifica al resto de hilos
+		notifyAll();
 		
 		
-		// TODO
+		// Comprobamos invariantes
 		checkInvariante();
 		
 	}
@@ -101,19 +100,17 @@ public class Parque implements IParque{
 	protected void checkInvariante() {
 		assert sumarContadoresPuerta() == contadorPersonasTotales : "INV: La suma de contadores de las puertas debe ser igual al valor del contador del parte";
 		//Se añaden los dos invariantes osbre salidas y entradas al parque
-		assert contadorPersonasTotales < AFORO_MAX: "No se puede superar el aforo máximo";
-		assert contadorPersonasTotales > AFORO_MIN: "El aforo no puede ser menor que el aforo mínimo";
+		assert contadorPersonasTotales <= AFORO_MAX: "No se puede superar el aforo máximo";
+		assert contadorPersonasTotales >= AFORO_MIN: "El aforo no puede ser menor que el aforo mínimo";
 
 		
 		
 		
 	}
 
-	protected void comprobarAntesDeEntrar(){	// TODO
-		//
-		// TODO
-		//
-		while( contadorPersonasTotales > AFORO_MAX) {
+	protected void comprobarAntesDeEntrar(){
+
+		while(contadorPersonasTotales >= AFORO_MAX) {
 			try {
 				wait();
 				} catch (InterruptedException e) {
@@ -123,11 +120,9 @@ public class Parque implements IParque{
 
 	}
 
-	protected void comprobarAntesDeSalir(){		// TODO
-		//
-		// TODO
-		//
-		while( contadorPersonasTotales < AFORO_MIN) {
+	protected void comprobarAntesDeSalir(){	
+
+		while( contadorPersonasTotales <= AFORO_MIN) {
 			try {
 				wait();
 				} catch (InterruptedException e) {

@@ -4,7 +4,7 @@ public interface IParque {
 	
 	public abstract void entrarAlParque(String puerta);
 	
-	//Clase añadida (para salir del parque) test
+	//Clase añadida (para salir del parque) 
 	public abstract void salirDelParque(String puerta);
 
 }
